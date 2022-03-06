@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('badania', BadanieController::class)->except([
+Route::resource('badanie', BadanieController::class)->except([
     'index', 'create', 'edit']);
-Route::resource('kategorieBadan', KategoriaBadanController::class)->except([
+Route::resource('kategoriaBadan', KategoriaBadanController::class)->except([
     'index', 'create', 'edit']);

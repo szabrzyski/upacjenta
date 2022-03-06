@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('badania', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('kategoria_badania_id');
             $table->string('nazwa')->unique();
             $table->string('kod_icd');
             $table->string('czas_oczekiwania');
