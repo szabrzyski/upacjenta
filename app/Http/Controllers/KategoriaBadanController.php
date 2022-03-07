@@ -119,4 +119,22 @@ class KategoriaBadanController extends Controller
         }
 
     }
+
+    /**
+     * Zwraca listę badań dla wskazanej kategorii
+     *
+     * @param int $kategoriaBadanId
+     * @return \Illuminate\Http\Response
+     */
+    public function badania(int $kategoriaBadanId)
+    {
+        $kategoriaBadan = KategoriaBadan::where('id', $kategoriaBadanId)->first();
+
+        if ($kategoriaBadan) {
+            return response()->json($kategoriaBadan->badania, 200, [], JSON_UNESCAPED_UNICODE);
+        } else {
+            return response()->json("Nie odnaleziono takiej kategorii", 404, [], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
 }

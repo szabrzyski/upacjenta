@@ -20,7 +20,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// CRUD dla badań
 Route::resource('badanie', BadanieController::class)->except([
     'index', 'create', 'edit']);
+
+// CRUD dla kategorii badań
 Route::resource('kategoriaBadan', KategoriaBadanController::class)->except([
     'index', 'create', 'edit']);
+
+// Lista badań należących do kategorii
+Route::get('/kategoriaBadan/badania/{kategoriaBadan}', [KategoriaBadanController::class, 'badania'])->name('badaniaDlaKategorii');
