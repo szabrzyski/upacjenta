@@ -73,7 +73,7 @@ class BadanieController extends Controller
      */
     public function show(int $badanieId)
     {
-        $badanie = Badanie::where('id', $badanieId)->first();
+        $badanie = Badanie::where('id', $badanieId)->with('kategorieBadan')->first();
 
         if ($badanie) {
             return response()->json($badanie, 200, [], JSON_UNESCAPED_UNICODE);

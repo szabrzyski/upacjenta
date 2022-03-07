@@ -49,7 +49,7 @@ class KategoriaBadanController extends Controller
      */
     public function show(int $kategoriaBadanId)
     {
-        $kategoriaBadan = KategoriaBadan::where('id', $kategoriaBadanId)->first();
+        $kategoriaBadan = KategoriaBadan::where('id', $kategoriaBadanId)->with('badania')->first();
 
         if ($kategoriaBadan) {
             return response()->json($kategoriaBadan, 200, [], JSON_UNESCAPED_UNICODE);
