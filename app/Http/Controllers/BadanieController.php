@@ -20,7 +20,6 @@ class BadanieController extends Controller
     public function store(Request $request)
     {
         $kategorieBadan = KategoriaBadan::all()->pluck('id')->toArray();
-
         $walidator = Validator::make($request->all(), [
             'nazwa' => 'required|string|unique:badania,nazwa',
             'kod_icd' => 'required|string',
@@ -55,6 +54,9 @@ class BadanieController extends Controller
 
         try {
             $badanie = Badanie::create($request->except(['kategorie_badan']));
+            $przypisaneKategorieBadan = array_unique($request->kategorie_badan);
+            $badanie->kategorieBadan()->sync($przypisaneKategorieBadan);
+            $badanie->load('kategorieBadan');
             return response()->json($badanie, 201, [], JSON_UNESCAPED_UNICODE);
 
         } catch (Exception $wyjatek) {
@@ -130,6 +132,10 @@ class BadanieController extends Controller
             $badanie->czas_oczekiwania = $request->czas_oczekiwania;
             $badanie->skrocony_opis = $request->skrocony_opis;
             $badanie->opis = $request->opis;
+
+            $przypisaneKategorieBadan = array_unique($request->kategorie_badan);
+            $badanie->kategorieBadan()->sync($przypisaneKategorieBadan);
+            $badanie->load('kategorieBadan');
 
             if ($badanie->save()) {
                 return response()->json("Badanie zostało zaktualizowana", 200, [], JSON_UNESCAPED_UNICODE);
